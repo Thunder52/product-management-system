@@ -7,7 +7,7 @@ const router=express.Router();
 
 router.get('/create',authenticate,authorize,(req,res)=>{
     const role=req.role;
-    res.render('createProduct.ejs',{role});
+    return res.render('createProduct.ejs',{role});
 })
 router.get('/home',authenticate,getProduct)
 router.post('/create',authenticate,authorize,upload.single('image'),addProduct);
