@@ -11,7 +11,7 @@ router.get('/register',(req,res)=>{
 router.post('/register',registerController);
 router.post('/login',loginController);
 router.get('/',(req,res)=>{
-   res.render('login.ejs'); 
+   return res.render('login.ejs'); 
 })
 
 
