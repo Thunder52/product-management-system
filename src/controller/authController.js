@@ -5,9 +5,9 @@ import signupValidiator from "../helper/signupValidiator.js";
 import loginValidiator from "../helper/loginValidiator.js";
 
 export const registerController = async (req, res) => {
+  try {
   const { error } = signupValidiator(req.body);
   const { username, email, password } = req.body;
-  try {
   if (error) {
     console.log(error);
     return res.status(400).send(error);
@@ -26,10 +26,10 @@ export const registerController = async (req, res) => {
       { expiresIn: "1d" }
     );
     res.cookie("token", token, { httpOnly: true });
-    res.redirect('/home');
+    return res.redirect('/home');
   } catch (error) {
     console.log(error);
-    res.status(500).send("soomething wents wrong");
+    return res.status(500).send("soomething wents wrong");
   }
 };
 
@@ -55,9 +55,9 @@ export const loginController = async (req, res) => {
       { expiresIn: "1d" }
     );
     res.cookie("token", token, { httpOnly: true });
-    res.redirect('/home');
+    return res.redirect('/home');
   } catch (error) {
     console.log(error);
-    res.status(500).send("something wents wrong");
+    return res.status(500).send("something wents wrong");
   }
 };
