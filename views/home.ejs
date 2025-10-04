@@ -1,0 +1,67 @@
+<%- include('partials/navbar') %>
+
+<body class="bg-dark text-light">
+  <div class="container mt-4">
+    <form class="row g-2 mb-4" method="GET" action="/home">
+      <div class="col-md-3">
+        <select class="form-select bg-dark text-light border-secondary" name="field">
+          <option value="name" <%= query?.field === "name" ? "selected" : "" %>>Name</option>
+          <option value="price" <%= query?.field === "price" ? "selected" : "" %>>Price</option>
+          <option value="quantity" <%= query?.field === "quantity" ? "selected" : "" %>>Quantity</option>
+          <option value="manufacturingDate" <%= query?.field === "manufacturingDate" ? "selected" : "" %>>Manufacturing Date</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control bg-dark text-light border-secondary" name="search" placeholder="Enter value to search" value="<%= query?.search || '' %>">
+      </div>
+      <div class="col-md-3 d-flex">
+        <button type="submit" class="btn btn-info me-2">Search</button>
+        <a href="/home" class="btn btn-outline-light">Reset</a>
+      </div>
+    </form>
+    <div class="row g-4">
+      <% if(products.length > 0) { %>
+      <% products.forEach(product => { %>
+      <div class="col-md-3">
+        <div class="card h-100 shadow-lg bg-secondary text-light border-0">
+          <img src="<%= product.image %>" class="card-img-top" alt="Product Image" style="height:200px; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title text-info"><%= product.name %></h5>
+            <p class="card-text mb-1"><strong>Price:</strong> ₹<%= product.price %></p>
+            <p class="card-text mb-1"><strong>Quantity:</strong> <%= product.quantity %></p>
+            <p class="card-text"><strong>Mfg Date:</strong> <%= product.manufacturingDate %></p>
+          </div>
+          <% if(role==='admin') {%>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="/delete/<%= product._id %>" class="btn btn-sm btn-danger">Delete</a>
+            <a href="/edit?id=<%= product._id %>" class="btn btn-sm btn-warning">Edit</a>
+          </div><% } %>
+        </div>
+      </div>
+      <% }) %>
+      <% } else { %>
+      <p class="text-center text-muted">No products found.</p>
+      <% } %>
+    </div>
+    <nav class="mt-5">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <%= currPage == 1 ? 'disabled' : '' %>">
+          <a class="page-link bg-dark text-light" href="/home?page=<%= currPage - 1 %>&field=<%= query?.field || '' %>&search=<%= query?.search || '' %>">Previous</a>
+        </li>
+
+        <% for(let i = 1; i <= totalPage; i++) { %>
+        <li class="page-item <%= currPage == i ? 'active' : '' %>">
+          <a class="page-link bg-dark text-light <%= currPage == i ? 'fw-bold text-info' : '' %>" href="/home?page=<%= i %>&field=<%= query?.field || '' %>&search=<%= query?.search || '' %>">
+            <%= i %>
+          </a>
+        </li>
+        <% } %>
+
+        <li class="page-item <%= currPage == totalPage ? 'disabled' : '' %>">
+          <a class="page-link bg-dark text-light" href="/home?page=<%= currPage + 1 %>&field=<%= query?.field || '' %>&search=<%= query?.search || '' %>">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>

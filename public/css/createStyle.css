@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins&display=swap');
+
+body{
+    background-color: #171923;
+}
+
+.navbar-brand{
+    font-family: "poppins", serif;
+    font-size: 28px;
+    color: #2693D5;
+    text-transform: uppercase;
+    font-weight: 600;  
+}
+.icon-btn{
+    background-color: #3C3E46;
+}
+.card{
+    background-color: #2d3748;
+}
+.form-control{
+    background-color: #2d3748 !important;
+    color: white !important; 
+}
+.default-color{
+    color: #a0aec0 !important;
+}
+.form-control:checked{
+    border: 1px solid #2693D5 !important;
+}
+.form-control::placeholder {
+  color: #a0aec0 !important;
+}
+.add-btn{
+    background-color: #90CDF4;
+}
+.add-btn:hover{
+    background-color: #63B3ED;
+}
+.bi {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  line-height: 1; 
+  vertical-align: middle;
+}
+.navbar-brand:hover{
+    color: #085181;
+}
